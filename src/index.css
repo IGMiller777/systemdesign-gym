@@ -1,0 +1,109 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/*
+ * "Control room" design tokens.
+ * Graphite-blue instead of near-black; amber = rewards & warnings (instrument lights),
+ * teal = healthy / primary action, coral = incident. Onest for UI, Unbounded for display.
+ */
+@theme {
+  --font-sans: 'Onest', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Unbounded', 'Onest', ui-sans-serif, sans-serif;
+
+  --color-zinc-50: #f3f5f8;
+  --color-zinc-100: #e4e8ee;
+  --color-zinc-200: #c9d0da;
+  --color-zinc-300: #a9b3c1;
+  --color-zinc-400: #8793a5;
+  --color-zinc-500: #67748a;
+  --color-zinc-600: #4b566a;
+  --color-zinc-700: #364051;
+  --color-zinc-800: #262e3b;
+  --color-zinc-900: #1a212c;
+  --color-zinc-950: #121821;
+
+  --color-sky-200: #b3efe9;
+  --color-sky-300: #7fe0d6;
+  --color-sky-400: #3fc8c0;
+  --color-sky-500: #24a9a3;
+
+  --color-amber-200: #fbe2a8;
+  --color-amber-300: #f6c862;
+  --color-amber-400: #f2b33d;
+
+  --color-rose-200: #fdc9c7;
+  --color-rose-300: #f9a19e;
+  --color-rose-400: #f47c78;
+  --color-rose-500: #f0605d;
+}
+
+@layer base {
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-sky-400);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-zinc-950 text-zinc-100 antialiased;
+}
+
+@keyframes slidein {
+  from { transform: translateX(120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Holographic frame for mastered cards (cosmetic "foil") */
+.foil {
+  background: linear-gradient(115deg, #f472b6, #fbbf24, #34d399, #38bdf8, #a78bfa, #f472b6);
+  background-size: 200% 100%;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Canvas themes (cosmetics) */
+.theme-blueprint .react-flow { background: #0b2a4a !important; }
+.theme-blueprint .react-flow__background pattern circle { fill: #3b82f680 !important; }
+.theme-neon .react-flow { background: radial-gradient(circle at 30% 20%, #2a0a3a, #0a0612 70%) !important; }
+.theme-neon .react-flow__background pattern circle { fill: #f472b6aa !important; }
+.theme-neon .react-flow__edge-path { filter: drop-shadow(0 0 3px #f472b6); }
+.theme-matrix .react-flow { background: #020a04 !important; }
+.theme-matrix .react-flow__background pattern circle { fill: #22c55e88 !important; }
+.theme-matrix .react-flow__edge-path { stroke: #22c55e !important; }
+
+/* ```timeline bars grow left to right in time order (delay/duration set inline) */
+@keyframes tl-grow {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+.tl-bar { animation: tl-grow linear both; }
+.tl-wait { background: repeating-linear-gradient(135deg, #f43f5e33 0 5px, #f43f5e14 5px 10px); outline: 1px dashed #f43f5e66; outline-offset: -1px; }
+
+/* ```seq rows appear one by one after ▶ */
+@keyframes seq-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+.seq-step { animation: seq-in 0.35s ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-bar, .seq-step { animation: none; }
+}

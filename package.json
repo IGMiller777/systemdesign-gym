@@ -1,0 +1,49 @@
+{
+  "name": "sysdesign-gym",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -n web,api -c cyan,magenta \"vite\" \"node --watch --import tsx server/index.ts\"",
+    "dev:web": "vite",
+    "dev:api": "node --watch --import tsx server/index.ts",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview --port 5800",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@xyflow/react": "^12.12.0",
+    "canvas-confetti": "^1.9.4",
+    "clsx": "^2.1.1",
+    "highlight.js": "^11.12.0",
+    "lucide-react": "^1.58.0",
+    "motion": "^14.3.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-markdown": "^10.1.0",
+    "react-router": "^8.4.0",
+    "recharts": "^3.10.1",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@hono/node-server": "^2.1.5",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^10.0.6",
+    "hono": "^4.13.13",
+    "oxlint": "^1.81.0",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0",
+    "vitest": "^5.0.5"
+  }
+}
